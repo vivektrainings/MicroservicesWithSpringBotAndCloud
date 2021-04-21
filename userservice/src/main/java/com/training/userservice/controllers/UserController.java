@@ -38,6 +38,7 @@ public class UserController {
 	
 	@GetMapping("/hello")
 	public String hello() {
+		//http://orderservice/hello
 		String resp = restemplate.getForObject(orderurl+"/hello", String.class);
 		return resp+ " Hitted from UserService";
 	}
