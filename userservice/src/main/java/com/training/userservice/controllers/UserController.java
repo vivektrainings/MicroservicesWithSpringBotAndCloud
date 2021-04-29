@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import com.training.userservice.model.User;
 import com.training.userservice.services.UserService;
 
@@ -36,6 +38,7 @@ public class UserController {
 		
 	}
 	
+	@HystrixCommand(fallbackMethod = "mymethode",commandKey = "demo")
 	@GetMapping("/hello")
 	public String hello() {
 		//http://orderservice/hello
@@ -43,6 +46,12 @@ public class UserController {
 		return resp+ " Hitted from UserService";
 	}
 
+	
+	
+	public String mymethode() {
+		return "FALL BACK HAPPENED at /hello";
+	}
+	
 	@GetMapping("/getallusers/{pagesize}/{pageno}")
 	public ResponseEntity<List<User>> getAllUsers(@PathVariable int pageno, @PathVariable int pagesize) {
 		HttpHeaders  headers = new HttpHeaders();		

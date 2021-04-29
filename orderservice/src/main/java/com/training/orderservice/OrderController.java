@@ -8,6 +8,6 @@ public class OrderController {
 
 	@GetMapping("/hello")
 	public String greet() {
-		return "Hello from OrderService";
+		return "Hello from OrderService Instance 2";
 	}
 }
